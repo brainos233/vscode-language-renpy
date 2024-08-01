@@ -22,6 +22,7 @@ import { initializeLoggingSystems, logMessage, logToast, updateStatusBar } from 
 import { Configuration } from "./configuration";
 import { RenpyAdapterDescriptorFactory, RenpyConfigurationProvider } from "./debugger";
 import { RenpyTaskProvider } from "./task-provider";
+import { testParser } from "./parser/parser-test";
 
 let extensionMode: ExtensionMode = null!;
 
@@ -32,6 +33,9 @@ export function isShippingBuild(): boolean {
 export async function activate(context: ExtensionContext): Promise<void> {
     extensionMode = context.extensionMode;
     initializeLoggingSystems(context);
+
+    testParser();
+
     updateStatusBar("$(sync~spin) Loading Ren'Py extension...");
 
     Configuration.initialize(context);
