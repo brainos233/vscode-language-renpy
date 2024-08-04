@@ -428,6 +428,7 @@ ${(decoration.hoverMessage as MarkdownString).value}`,
             case MetaTokenType.StringBegin:
             case MetaTokenType.StringEnd:
             case MetaTokenType.SimpleExpression:
+            case MetaTokenType.RenpyBlock:
             case MetaTokenType.CodeBlock:
             case MetaTokenType.PythonLine:
             case MetaTokenType.PythonBlock:
