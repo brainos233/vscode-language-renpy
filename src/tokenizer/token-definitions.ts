@@ -3,7 +3,7 @@ import { LogLevel, Position, TextDocument, Range as VSRange } from "vscode";
 import { CharacterTokenType, EntityTokenType, EscapedCharacterTokenType, KeywordTokenType, LiteralTokenType, MetaTokenType, OperatorTokenType, TokenType, TokenTypeIndex, TypeOfTokenType } from "./renpy-tokens";
 import { TokenPattern, TokenRangePattern, TokenMatchPattern, TokenRepoPattern } from "./token-pattern-types";
 import { Vector } from "../utilities/vector";
-import { logMessage } from "../logger";
+import { LogCategory, logCatMessage, logMessage } from "../logger";
 import { EnumToString } from "../utilities/utils";
 
 export class Range {
@@ -267,6 +267,15 @@ export class TreeNode {
             if (start.charStartOffset > currentEnd.charStartOffset) {
                 // There is a gap between the current end position and the start of the next token range
                 const gapToken = new Token(this.token.type, currentEnd, start);
+
+                if (gapToken.isMetaToken()) {
+                    logCatMessage(
+                        LogLevel.Error,
+                        LogCategory.Parser,
+                        `Attempting to assign meta token "${tokenTypeToString(gapToken.type)}" to token gap @ (${gapToken.startPos}) -> (${gapToken.endPos}). Update the token pattern to assign a value token to this gap!"`,
+                    );
+                }
+
                 tokens.pushBack(gapToken);
             }
             currentEnd = currentEnd.charStartOffset > token.endPos.charStartOffset ? currentEnd : token.endPos;
