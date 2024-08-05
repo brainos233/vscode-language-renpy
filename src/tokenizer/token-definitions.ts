@@ -15,12 +15,18 @@ export class Range {
         this.end = end;
     }
 
-    overlaps(other: Range): boolean {
+    public overlaps(other: Range): boolean {
         return this.start <= other.end && other.start <= this.end;
     }
 
-    contains(position: number): boolean {
+    public contains(position: number): boolean {
         return position >= this.start && position <= this.end;
+    }
+
+    public toVSRange(document: TextDocument): VSRange {
+        const start = document.positionAt(this.start);
+        const end = document.positionAt(this.end);
+        return new VSRange(start, end);
     }
 }
 
@@ -87,7 +93,7 @@ export class Token {
         this.metaTokens = new Vector<TokenType>();
     }
 
-    public getVSCodeRange() {
+    public getVSRange() {
         const start = new Position(this.startPos.line, this.startPos.character);
         const end = new Position(this.endPos.line, this.endPos.character);
 
@@ -151,7 +157,7 @@ export class Token {
     }
 
     public getValue(document: TextDocument) {
-        return document.getText(this.getVSCodeRange());
+        return document.getText(this.getVSRange());
     }
 
     public toString() {
@@ -330,6 +336,7 @@ export class TokenListIterator {
     private readonly _tokens: Vector<Token>;
     private _index = 0;
     private _blacklist: Set<TokenType> = new Set<TokenType>();
+    public readonly EOF_TOKEN = new Token(MetaTokenType.EOF, new TokenPosition(0, 0, -1), new TokenPosition(0, 0, -1));
 
     constructor(tokens: Vector<Token>) {
         this._tokens = tokens;
@@ -360,6 +367,9 @@ export class TokenListIterator {
     }
 
     public get token() {
+        if (this._index >= this._tokens.size) {
+            return this.EOF_TOKEN;
+        }
         return this._tokens.at(this._index);
     }
 
@@ -402,7 +412,7 @@ export class TokenListIterator {
      * Returns true if there are more nodes to visit
      */
     public hasNext() {
-        return this._index < this._tokens.size - 1;
+        return this._index < this._tokens.size;
     }
 }
 
@@ -628,6 +638,7 @@ const tokenTypeDefinitions: EnumToString<TypeOfTokenType> = {
 
     Invalid: { name: "Invalid", value: MetaTokenType.Invalid },
     Deprecated: { name: "Deprecated", value: MetaTokenType.Deprecated },
+    EOF: { name: "EOF", value: MetaTokenType.EOF },
 
     Comment: { name: "Comment", value: MetaTokenType.Comment },
     CommentCodeTag: { name: "CommentCodeTag", value: MetaTokenType.CommentCodeTag },

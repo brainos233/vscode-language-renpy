@@ -235,7 +235,7 @@ async function updateDecorations() {
             return;
         }
 
-        const range = token.getVSCodeRange();
+        const range = token.getVSRange();
         const content = activeEditor?.document.getText(range);
 
         const decoration: DecorationOptions = {
