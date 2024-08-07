@@ -451,7 +451,7 @@
             show eileen
             with dissolve
 
-            "Without window auto show, the window would have been shown here."
+            "Without window auto show, the window would have been shown here." (what_color="#8c8")
 
         $ e("Hello, world.", interact=True)
         define character.e = Character("Eileen")
@@ -922,7 +922,7 @@
             voice "l02.ogg"
             l "Wait... that means they can mute me as well! Really?"
 
-        config.auto_voice = "voice/{id}.ogg"
+            $ config.auto_voice = "voice/{id}.ogg"
     #endregion Voice
 
 #endregion
@@ -954,11 +954,14 @@
 
             # This line is incorrect, and will cause an error or incorrect
             # behavior.
-            # "Plain {b}Bold {i}Bold-Italic{/b} Italic{/i} Plain"
+            "Plain {b}Bold {i}Bold-Italic{/b} Italic{/i} Plain"
+
+            "{a=https://renpy.org}Ren'Py's home page{/a}?" #test
+            "{a=https://renpy.org}Ren'Py' s home page?" #test
 
         label test:
 
-            e "Why don't you visit {a=https://renpy.org}Ren'Py's home page{/a}?"
+            e "Why don't you visit {a=https://renpy.org}Ren'Py's home page{/a}?" #
 
             e "Or {a=jump:more_text}here for more info{/a}."
 
@@ -996,6 +999,8 @@
             "Let's have a {outlinecolor=#00ff00}Green{/outlinecolor} outline."
 
             "{b}This is bold. {plain}This is not.{/plain} This is bold.{/b}"
+            "{b}This is bold. {plain}This is not. Plain till end of string.{/b}"
+            "{b}This is bold till end of string."
 
             g "It's good {s}to see you{/s}."
 
@@ -1006,6 +1011,7 @@
             g "It's good to {u}see{/u} you."
 
             "Line 1{vspace=30}Line 2"
+            "Line 1{=mystyle}Line 2{/=mystyle}"
 
             "New{#playlist}"
 
@@ -1209,14 +1215,15 @@
 
                 This line will be separate. Bork bork bork.
                 """)
+                
+        screen my_screen:
+            frame:
+                style_prefix "pref"
+                has vbox
 
-        frame:
-            style_prefix "pref"
-            has vbox
-
-            label _("Language")
-            textbutton "English" action Language(None)
-            textbutton "Igpay Atinlay" action Language("piglatin")
+                label _("Language")
+                textbutton "English" action Language(None)
+                textbutton "Igpay Atinlay" action Language("piglatin")
 
         define config.about = _p("""
             These two lines will be combined together
@@ -1879,7 +1886,7 @@
         image big hello world = Text("Hello, World", size=40)
 
         screen big_hello_world:
-        text "Hello, World" size 40
+            text "Hello, World" size 40
 
         image big hello world = Text("Hello World", style="big")
 
@@ -3372,27 +3379,27 @@
             on "replaced" action Play("music", "track1.ogg")
             textbutton "Music Room" action ShowMenu("music_room")
 
-        "And finally, I met the wizard himself."
+            "And finally, I met the wizard himself."
 
-        label meaning_of_life:
+            label meaning_of_life:
 
-            scene
+                scene
 
-            "Mage" "What is the meaning of life, you say?"
+                "Mage" "What is the meaning of life, you say?"
 
-            "Mage" "I've thought about it long and hard. A long time, I've
-                    spent pondering that very thing."
+                "Mage" "I've thought about it long and hard. A long time, I've
+                        spent pondering that very thing."
 
-            "Mage" "And I'll say - the answer - the meaning of life
-                    itself..."
+                "Mage" "And I'll say - the answer - the meaning of life
+                        itself..."
 
-            "Mage" "Is forty-three."
+                "Mage" "Is forty-three."
 
-            $ renpy.end_replay()
+                $ renpy.end_replay()
 
-            "Mage" "Something like that, anyway."
+                "Mage" "Something like that, anyway."
 
-        textbutton "The meaning of life" action Replay("meaning_of_life")
+            textbutton "The meaning of life" action Replay("meaning_of_life")
 
     #endregion Image Gallery, Music Room, and Replay Actions
 
