@@ -36,7 +36,7 @@ export const enum KeywordTokenType {
     Camera,
     Show,
     Image,
-    LayeredImage,
+    Layeredimage,
     Window,
     Frame,
     Transform,
@@ -66,6 +66,10 @@ export const enum KeywordTokenType {
     OtherPython,
     OtherAudio,
     Layer,
+    Always,
+    Group,
+    Attribute,
+    Nopredict,
 
     // Renpy style sub-expression keywords
     Take,
@@ -76,6 +80,7 @@ export const enum KeywordTokenType {
     // Renpy screen sub-expression keywords
     Vbox,
     Hbox,
+    Fixed,
 
     // Renpy control flow keywords
     At,
@@ -131,13 +136,16 @@ export const enum EntityTokenType {
     FunctionName,
     TagName,
     Identifier,
-    StyleName,
 
     // Renpy entities
+    StyleName,
+    TransformName,
     ImageName,
     TextName,
     AudioName,
     CharacterName,
+    LayeredimageName,
+    LanguageName,
 
     // ATL entities
     EventName,
@@ -266,6 +274,7 @@ export const enum EscapedCharacterTokenType {
     EscBackslash, // \\
     EscOpenSquareBracket, // [[
     EscOpenBracket, // {{
+    EscPercent, // %%
 }
 
 export const enum MetaTokenType {
@@ -288,6 +297,20 @@ export const enum MetaTokenType {
     StringEnd,
 
     SimpleExpression,
+
+    LayeredimageBlock,
+    LayeredimageStatement,
+    LayeredimageParameters,
+    LayeredimageGroupStatement,
+    LayeredimageGroupParameters,
+    LayeredimageAttributeStatement,
+    LayeredimageAttributeParameters,
+
+    TranslateBlock,
+    TranslateStatement,
+    TranslateParameters,
+
+    ScreenCall,
 
     RenpyBlock,
     CodeBlock,
@@ -338,6 +361,8 @@ export const enum MetaTokenType {
     ScreenSensitive,
     ScreenFrame,
     ScreenFrameStatement,
+    ScreenFixed,
+    ScreenFixedStatement,
     ScreenWindow,
     ScreenWindowStatement,
     ScreenText,
@@ -385,7 +410,7 @@ export const enum MetaTokenType {
     MemberAccess,
     ItemAccess,
     IndexedName,
-    Attribute,
+    DataAttribute,
     ClassDefinition,
     ClassInheritance,
     FunctionDefinition,
