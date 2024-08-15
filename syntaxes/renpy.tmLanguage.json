@@ -1374,17 +1374,18 @@
     "label": {
       "name": "meta.label.statement.renpy",
       "begin": "(?<=^[ \\t]*)(label)\\b",
+      "end": "(?=#|:)|$",
       "beginCaptures": {
         "1": { "name": "storage.type.function.label.renpy" }
       },
-      "end": "$|^",
       "patterns": [
         {
-          "match": "\\b(hide)\\b",
-          "name": "keyword.hide.renpy"
+          "name": "keyword.control.flow.hide.renpy",
+          "match": "\\b(?<!\\.)(hide)\\b"
         },
         { "include": "#label-def-name" },
-        { "include": "source.renpy.python#parameters" }
+        { "include": "source.renpy.python#parameters" },
+        { "include": "#fallback-patterns" }
       ]
     },
     "return-statements": {
