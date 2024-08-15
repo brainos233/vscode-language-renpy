@@ -35,6 +35,7 @@ export const enum KeywordTokenType {
     Scene,
     Camera,
     Show,
+    Auto,
     Image,
     Layeredimage,
     Window,
@@ -346,6 +347,7 @@ export const enum MetaTokenType {
     SceneStatement,
     ShowStatement,
     HideStatement,
+    WindowStatement,
 
     CallStatement,
     CallArguments,
