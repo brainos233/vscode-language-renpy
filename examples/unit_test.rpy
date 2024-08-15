@@ -23,6 +23,13 @@
         define s = Character('Sylvie', color="#dcdcaa") # Scopes: entity.name.function, support.function
         define s = Character('Sylvie', color="#f44747") # Scopes: invalid
 
+        default name1="foo"
+        default name2="bar"
+        default names=list(["[name1]","[name2][[]"])
+
+        label start:
+            $ my_list = ["[name1]]"]
+
         define m = Character('Me', color="#c8c8ff")
 
         image logo = "renpy logo.png"
