@@ -1686,7 +1686,7 @@ export const label: TokenPattern = {
     beginCaptures: {
         1: { token: KeywordTokenType.Label, /*storage.type.function.label.renpy*/ },
     },
-    end: /(?=#|:)|$/gm,
+    end: /(?=:)|$/gm,
     patterns: [
         {
             debugName: "label.patterns![0]",
