@@ -9,7 +9,7 @@ import { colorProvider } from "./color";
 import { getStatusBarText, NavigationData } from "./navigation-data";
 import { cleanUpPath, getAudioFolder, getImagesFolder, getNavigationJsonFilepath, getWorkspaceFolder, stripWorkspaceFromFile } from "./workspace";
 import { diagnosticsInit } from "./diagnostics";
-import { semanticTokensProvider } from "./semantics";
+import { highlightProvider, semanticTokensProvider } from "./semantics";
 import { hoverProvider } from "./hover";
 import { completionProvider } from "./completion";
 import { definitionProvider } from "./definition";
@@ -42,6 +42,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
     // Subscribe to supported language features
     context.subscriptions.push(hoverProvider);
+    context.subscriptions.push(highlightProvider);
     context.subscriptions.push(definitionProvider);
     context.subscriptions.push(symbolProvider);
     context.subscriptions.push(signatureProvider);
