@@ -11,9 +11,7 @@ export const symbolProvider = languages.registerDocumentSymbolProvider("renpy", 
             return;
         }
 
-        return new Promise((resolve) => {
-            resolve(getDocumentSymbols(document));
-        });
+        return Promise.resolve(getDocumentSymbols(document));
     },
 });
 

@@ -21,9 +21,7 @@ export const semanticTokensProvider = languages.registerDocumentSemanticTokensPr
                 return;
             }
 
-            return new Promise((resolve) => {
-                resolve(getSemanticTokens(document));
-            });
+            return Promise.resolve(getSemanticTokens(document));
         },
     },
     legend,

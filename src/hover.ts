@@ -14,9 +14,7 @@ export const hoverProvider = languages.registerHoverProvider("renpy", {
             return;
         }
 
-        return new Promise((resolve) => {
-            resolve(getHoverContent(document, position));
-        });
+        return Promise.resolve(getHoverContent(document, position));
     },
 });
 
