@@ -1,19 +1,31 @@
 // Provider for Go To Definition
-import { CancellationToken, Definition, Location, Position, ProviderResult, TextDocument, Uri, languages } from "vscode";
+import { CancellationToken, Definition, Location, Position, TextDocument, Uri, languages, window } from "vscode";
 import { getKeywordPrefix } from "./extension";
 import { rangeAsString } from "./navigation";
 import { NavigationData } from "./navigation-data";
 import { getFileWithPath, stripWorkspaceFromFile } from "./workspace";
+import { Parser } from "./parser/parser";
 
 export const definitionProvider = languages.registerDefinitionProvider("renpy", {
-    provideDefinition(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Definition> {
+    async provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
         if (token.isCancellationRequested) {
             return;
         }
 
-        return new Promise((resolve) => {
-            resolve(getDefinition(document, position));
-        });
+        // Test parser version if active document
+        const activeEditor = window.activeTextEditor;
+        if (activeEditor?.document === document) {
+            const program = await Parser.parseDocument(document);
+
+            const word = document.getText(document.getWordRangeAtPosition(position));
+
+            const symbol = program.globalScope.resolve(word);
+            if (symbol) {
+                return new Location(document.uri, symbol.definitionLocation.range);
+            }
+        }
+
+        return Promise.resolve(getDefinition(document, position));
     },
 });
 
