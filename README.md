@@ -1,7 +1,7 @@
 
 # Ren'Py Language for Visual Studio Code
 
-An extension that adds rich support for the [Ren'Py](https://www.renpy.org/) programming language to [Visual Studio Code](https://code.visualstudio.com/).
+AAn extension that adds rich support for the [Ren'Py](https://www.renpy.org/) programming language to [Visual Studio Code](https://code.visualstudio.com/).
 
 Snippets converted from [Ren'Py language support in Atom](https://github.com/renpy/language-renpy)
 
